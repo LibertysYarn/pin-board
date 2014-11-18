@@ -5,15 +5,17 @@ class PinsController < ApplicationController
     @pins = Pin.all.order("created_at DESC")
   end
 
+  def show
+  end
+
   def new
-    @pin = Pin.new
+    @pin = current_user.pins.build
   end
 
   def create
-    @pin = Pin.new(pin_params)
-
+    @pin = current_user.pins.build(pin_params)
     if @pin.save
-      redirect_to @pin, notice: 'successfully created new pin'
+      redirect_to @pin, notice: "successfully created new pin"
     else
       render 'new'
     end
@@ -27,6 +29,7 @@ class PinsController < ApplicationController
       redirect_to @pin, notice: "pin was successfully updated"
     else
       render 'edit'
+    end
   end
 
   def destroy
@@ -34,15 +37,14 @@ class PinsController < ApplicationController
     redirect_to root_path
   end
 
-  Private
+  private
 
   def pin_params
-    params.require(:pin).permit(:title, :description)
-  end
+		params.require(:pin).permit(:title, :description, :image)
+	end
 
   def find_pin
     @pin = Pin.find(params[:id])
   end
-
 
 end
