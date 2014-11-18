@@ -6,6 +6,7 @@ This is a Pinterest like clone built in Rails 4 using
 *haml
 *bootstrap-sass
 *simple_form
+*devise
 *masonry-rails
 *paperclip
 *acts_as_votable
